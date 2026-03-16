@@ -25,4 +25,9 @@ public class EventController {
         return eventService.getEventById(id);
     }
 
+    @PostMapping("/api/events")
+    public Event createEvent(@RequestBody Event event) {
+        return eventService.createEvent(event);
+    }
+
 }
