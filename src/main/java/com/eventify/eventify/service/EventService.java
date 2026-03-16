@@ -1,6 +1,7 @@
 package com.eventify.eventify.service;
 
 import com.eventify.eventify.dto.EventDto;
+import com.eventify.eventify.exception.ResourceNotFoundException;
 import com.eventify.eventify.model.Event;
 import com.eventify.eventify.repository.EventRepository;
 import org.springframework.stereotype.Service;
@@ -27,11 +28,8 @@ public class EventService {
 
     public EventDto getEventById(Long id) {
 
-        Event event = eventRepository.findById(id).orElse(null);
-
-        if (event == null) {
-            return null;
-        }
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Event not found with id " + id));
 
         return mapToDto(event);
     }
@@ -42,11 +40,8 @@ public class EventService {
 
     public Event updateEvent(Long id, Event updatedEvent) {
 
-        Event event = eventRepository.findById(id).orElse(null);
-
-        if (event == null) {
-            return null;
-        }
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Event not found with id " + id));
 
         event.setTitle(updatedEvent.getTitle());
         event.setDescription(updatedEvent.getDescription());
@@ -67,4 +62,5 @@ public class EventService {
                 event.getEventDate()
         );
     }
+
 }
