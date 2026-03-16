@@ -2,8 +2,7 @@ package com.eventify.eventify.controller;
 
 import com.eventify.eventify.model.Event;
 import com.eventify.eventify.service.EventService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +18,11 @@ public class EventController {
     @GetMapping("/api/events")
     public List<Event> getEvents() {
         return eventService.getAllEvents();
+    }
+
+    @GetMapping("/api/events/{id}")
+    public Event getEvent(@PathVariable Long id) {
+        return eventService.getEventById(id);
     }
 
 }
