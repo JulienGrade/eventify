@@ -1,5 +1,6 @@
 package com.eventify.eventify.controller;
 
+import com.eventify.eventify.dto.EventDto;
 import com.eventify.eventify.model.Event;
 import com.eventify.eventify.service.EventService;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +17,12 @@ public class EventController {
     }
 
     @GetMapping("/api/events")
-    public List<Event> getEvents() {
+    public List<EventDto> getEvents() {
         return eventService.getAllEvents();
     }
 
     @GetMapping("/api/events/{id}")
-    public Event getEvent(@PathVariable Long id) {
+    public EventDto getEvent(@PathVariable Long id) {
         return eventService.getEventById(id);
     }
 

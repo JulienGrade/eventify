@@ -1,5 +1,6 @@
 package com.eventify.eventify.service;
 
+import com.eventify.eventify.dto.EventDto;
 import com.eventify.eventify.model.Event;
 import com.eventify.eventify.repository.EventRepository;
 import org.springframework.stereotype.Service;
@@ -15,12 +16,24 @@ public class EventService {
         this.eventRepository = eventRepository;
     }
 
-    public List<Event> getAllEvents() {
-        return eventRepository.findAll();
+    public List<EventDto> getAllEvents() {
+
+        List<Event> events = eventRepository.findAll();
+
+        return events.stream()
+                .map(this::mapToDto)
+                .toList();
     }
 
-    public Event getEventById(Long id) {
-        return eventRepository.findById(id).orElse(null);
+    public EventDto getEventById(Long id) {
+
+        Event event = eventRepository.findById(id).orElse(null);
+
+        if (event == null) {
+            return null;
+        }
+
+        return mapToDto(event);
     }
 
     public Event createEvent(Event event) {
@@ -46,4 +59,12 @@ public class EventService {
         eventRepository.deleteById(id);
     }
 
+    private EventDto mapToDto(Event event) {
+        return new EventDto(
+                event.getId(),
+                event.getTitle(),
+                event.getDescription(),
+                event.getEventDate()
+        );
+    }
 }
