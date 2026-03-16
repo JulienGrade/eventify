@@ -27,4 +27,19 @@ public class EventService {
         return eventRepository.save(event);
     }
 
+    public Event updateEvent(Long id, Event updatedEvent) {
+
+        Event event = eventRepository.findById(id).orElse(null);
+
+        if (event == null) {
+            return null;
+        }
+
+        event.setTitle(updatedEvent.getTitle());
+        event.setDescription(updatedEvent.getDescription());
+        event.setEventDate(updatedEvent.getEventDate());
+
+        return eventRepository.save(event);
+    }
+
 }
