@@ -21,8 +21,7 @@ public class Event {
     public Event() {
     }
 
-    public Event(Long id, String title, String description, LocalDateTime eventDate) {
-        this.id = id;
+    public Event(String title, String description, LocalDateTime eventDate) {
         this.title = title;
         this.description = description;
         this.eventDate = eventDate;
