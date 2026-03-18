@@ -27,4 +27,13 @@ public class JwtService {
                 .signWith(key, Jwts.SIG.HS256)
                 .compact();
     }
+
+    public String extractUsername(String token) {
+        return Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .getSubject();
+    }
 }
